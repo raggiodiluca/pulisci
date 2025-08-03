@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Checklist Reset Casa – Cute Neko Style</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One|Nunito:400,700&display=swap');
+body {
+  background: linear-gradient(120deg, #f9f7e8 0%, #fffde3 50%, #f6f4ff 100%);
+  font-family: 'Nunito', 'Fredoka One', 'Comic Sans MS', cursive, sans-serif;
+  color: #554e44;
+  margin: 0;
+  padding: 0;
+}
+#reset-btn,
+.cute-btn {
+  display: block;
+  margin: 0 auto 22px auto;
+  padding: 12px 34px;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(92deg, #f6e49e 0%, #fcd5e1 100%);
+  color: #8d5687;
+  font-family: 'Fredoka One', 'Nunito', cursive;
+  font-size: 1.15em;
+  font-weight: 700;
+  letter-spacing: .5px;
+  box-shadow: 0 2px 16px #f6e49e35, 0 1.5px 4px 0 #f9d6e9bb;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  outline: none;
+}
+#reset-btn:hover,
+.cute-btn:hover {
+  background: linear-gradient(92deg, #fcd5e1 0%, #f6e49e 100%);
+  color: #b960c3;
+  transform: translateY(-2px) scale(1.04) rotate(-1deg);
+  box-shadow: 0 4px 24px #f6e49e55;
+}
+#reset-btn:active,
+.cute-btn:active {
+  transform: scale(0.98);
+  filter: brightness(0.97);
+}
+.cute-wrap {
+  max-width: 800px;
+  margin: 30px auto 30px auto;
+  background: #fffefc;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 #d5b7ff2c;
+  padding: 0 0 42px 0;
+  border: 3.5px dashed #f9d973;
+  position: relative;
+}
+.cute-header {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 0;
+  padding: 2.2em 1em 0.2em 1em;
+  font-family: 'Fredoka One', 'Nunito', sans-serif;
+  font-size: 2.3em;
+  color: #65bc69;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 #f9d97399;
+  position: relative;
+}
+.cute-neko {
+  font-size: 2em;
+  margin: 0;
+  filter: drop-shadow(0 2px 12px #ffe699a7);
+}
+.cute-fumetto {
+  font-family: 'Fredoka One', 'Nunito', cursive;
+  background: #fffec4;
+  border: 2px solid #ffe492;
+  border-radius: 18px 30px 18px 30px / 23px 15px 20px 16px;
+  padding: 8px 16px;
+  font-size: 1.13em;
+  color: #ad971c;
+  box-shadow: 1px 3px 0 #f9d97366;
+  display: block;
+  width: fit-content;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+}
+.fase-box {
+  margin: 25px 30px 28px 30px;
+  border-radius: 19px;
+  background: #f6fcfb;
+  border: 2px solid #d6e7d8;
+  box-shadow: 2px 6px 0 #c4e3df22;
+  padding: 1.5em 1.6em 1.1em 1.6em;
+  position: relative;
+}
+.fase-title {
+  font-family: 'Fredoka One', 'Nunito', cursive;
+  font-size: 1.18em;
+  color: #3da15a;
+  margin-bottom: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.fase-time {
+  background: #f6f187;
+  color: #967e0b;
+  border-radius: 11px;
+  font-size: .97em;
+  padding: 1px 10px 1.5px 10px;
+  font-weight: 700;
+  margin-left: 2px;
+  border: 1.5px dashed #ffe492;
+  letter-spacing: 0.02em;
+}
+.fase-note {
+  background: #fef7da;
+  color: #ad971c;
+  font-size: .98em;
+  border-left: 4px solid #ffe492;
+  border-radius: 0 13px 13px 0;
+  margin: 0 0 10px 0;
+  padding: 6px 12px 6px 14px;
+  display: block;
+}
+ul.fase-list {
+  margin: 16px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+li.fase-item {
+  margin: 0 0 11px 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+/* Checkbox sempre allineato a sinistra, non restringe mai */
+.cute-checkbox {
+  accent-color: #69c96d;
+  width: 20px;
+  height: 20px;
+  margin-top: 2.5px;
+  margin-right: 3px;
+  flex-shrink: 0;
+  transition: filter .18s;
+}
+.cute-checkbox:checked {
+  filter: drop-shadow(0 0 4px #f7b8d5);
+}
+
+/* Sottolista allineata orizzontale nel flex */
+.fase-list-sub {
+  margin-left: 31px;
+  padding: 0 0 0 11px;
+  border-left: 2px dashed #e4e7b1;
+  flex: 1 1 0;
+}
+
+/* Titolo principale di ogni blocco: larghezza fissa e responsive */
+.fase-cat {
+  flex: 0 0 clamp(110px, 30vw, 180px);
+  min-width: 110px;
+  max-width: 180px;
+  font-size: 1.17em;
+  color: #faac13;
+  margin-left: -6px;
+  margin-right: 6px;
+  font-family: 'Fredoka One', 'Nunito', cursive;
+  white-space: normal;
+  line-height: 1.33;
+}
+.fase-table {
+  margin: 36px auto 14px auto;
+  width: 90%;
+  font-size: 1em;
+  border-collapse: separate;
+  border-spacing: 0 4px;
+}
+.fase-table th, .fase-table td {
+  padding: 6px 12px;
+  border-radius: 12px;
+}
+.fase-table th {
+  background: #f6f187;
+  color: #736700;
+  font-family: 'Fredoka One', 'Nunito', cursive;
+  font-size: 1.05em;
+}
+.fase-table td {
+  background: #f9f9e4;
+  color: #73704a;
+  text-align: center;
+}
+.cute-divider {
+  margin: 0 17% 0 17%;
+  border: 0;
+  height: 3px;
+  background: repeating-linear-gradient(90deg,#ffe492,#ffe492 6px,#fff6c8 6px,#fff6c8 13px);
+  border-radius: 99px;
+}
+.fase-contingency {
+  margin: 22px 30px 28px 30px;
+  padding: 1em 1.6em;
+  background: #fffec4;
+  border: 2px dashed #ffe492;
+  border-radius: 17px;
+  font-size: 1.07em;
+  color: #ad971c;
+}
+.cute-footer {
+  font-family: 'Fredoka One', 'Nunito', cursive;
+  font-size: 1.11em;
+  color: #65bc69;
+  text-align: center;
+  margin: 35px 0 7px 0;
+  opacity: 0.7;
+}
+@media (max-width: 700px) {
+  .cute-wrap {margin: 0.8em 0.7em 0.8em 0.7em; }
+  .fase-box, .fase-contingency {margin: 15px 3vw 17px 3vw;}
+  .fase-table {font-size: 0.95em;}
+}
+</style>
+</head>
+<body>
+<div class="cute-wrap">
+  <div class="cute-header">
+    <p class="cute-neko">🐱</p>
+    <p>ねこぢる大研究</p>
+  </div>
+  <div class="cute-fumetto">
+    RESET CASA – Lista Super Cute con Tempi & Note
+  </div>
+
+  <!-- Fase 0 -->
+<div class="fase-box">
+  <div class="fase-title">⏱️ Fase 0 – Setup e Base Operativa <span class="fase-time">5‑7 min</span></div>
+  <div class="fase-note">Allestisci subito i tre campi base. Prepara buste e sacchi in anticipo per non doverti fermare durante la sistemazione!</div>
+  <ul class="fase-list">
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Allestisci i 3 campi base (<span class="fase-cat">Letto, Divano, Tavolo</span>)</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Prepara sacchi impermeabili per spazzatura, riciclo e donazione</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Predisponi buste o ceste per i panni da lavare</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Imposta un timer Pomodoro o uno stopwatch</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Prepara tutto il materiale per le pulizie (spray, panni, guanti)</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Tieni aspirapolvere e mocio pronti</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Apri le finestre o almeno cambia aria nelle stanze</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Metti musica o un podcast motivante!</span></li>
+  </ul>
+  <div class="fase-note" style="margin-top:12px;"><b>Contingenza:</b> Se canti, balli o il telefono vibra: staccalo fisicamente per evitare distrazioni!</div>
+</div>
+
+<hr class="cute-divider">
+
+<!-- Fase 1 -->
+<div class="fase-box">
+  <div class="fase-title">1️⃣ Fase 1 – Raccolta in 3 giri <span class="fase-time">15‑20 min</span></div>
+  <div class="fase-note">Fai 3 giri: prima solo spazzatura, poi solo vestiti, poi solo oggetti. Non ragionare: raccogli e smista! Se i sacchi dei rifiuti si riempiono e non puoi portarli fuori, sigillali e mettili in un angolo lontano dai passaggi.</div>
+  <ul class="fase-list">
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Giro 1: raccogli spazzatura → usa il sacco, mettilo nell’area dedicata</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Giro 2: raccogli tutti i vestiti sparsi → mettili sul letto</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Giro 3: raccogli oggetti/accessori → mettili sul divano</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Giro 4 (opzionale): raccogli cibo/contaminati → mettili sul tavolo (piatti sporchi direttamente in lavastoviglie o lavali subito)</span></li>
+  </ul>
+</div>
+
+<hr class="cute-divider">
+
+<!-- Fase 2 -->
+<div class="fase-box">
+  <div class="fase-title">2️⃣ Fase 2 – Processa ogni campo <span class="fase-time">20‑30 min</span></div>
+  <div class="fase-note">Lavora a blocchi: <b>Vestiti</b> → <b>Oggetti</b> → <b>Cibo</b>. Ordina per pile, chiudi subito i sacchi donazione/scarti e avvia la lavatrice appena puoi.</div>
+  <ul class="fase-list">
+    <li class="fase-item"><span class="fase-cat">Vestiti (Letto):</span>
+      <ul class="fase-list fase-list-sub">
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Dividi: da lavare / puliti / da donare o scartare</span></li>
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Chiudi e isola subito il sacco donazioni/scarti</span></li>
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Separa i panni da lavare: bianchi, colorati, delicati</span></li>
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Avvia subito la lavatrice</span></li>
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Piega o appendi i vestiti puliti</span></li>
+      </ul>
+    </li>
+    <li class="fase-item"><span class="fase-cat">Oggetti (Divano):</span>
+      <ul class="fase-list fase-list-sub">
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Crea tre pile: da rimettere / “decido dopo” / da buttare o donare</span></li>
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Riporta subito ogni oggetto al suo posto</span></li>
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Sigilla i sacchi da buttare/donare</span></li>
+      </ul>
+    </li>
+    <li class="fase-item"><span class="fase-cat">Cibo & Piatti (Tavolo):</span>
+      <ul class="fase-list fase-list-sub">
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Ordina: da buttare / da mettere in dispensa/frigo / contenitori</span></li>
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Lava piatti/utensili a mano o in lavastoviglie</span></li>
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Asciuga e rimetti al loro posto</span></li>
+        <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Pulisci e asciuga lavello e piano cucina</span></li>
+      </ul>
+    </li>
+  </ul>
+  <div class="fase-note">Il tavolo deve restare <b>libero</b> per passare aspirapolvere e mocio!</div>
+</div>
+
+<hr class="cute-divider">
+
+<!-- Fase 3 -->
+<div class="fase-box">
+  <div class="fase-title">3️⃣ Fase 3 – Pre-pulizia superfici <span class="fase-time">10‑12 min</span></div>
+  <div class="fase-note">Spolvera rapidamente e assicurati che ogni superficie (e il pavimento) sia libera prima di iniziare le pulizie a terra.</div>
+  <ul class="fase-list">
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Spolvera mensole, comodini, battiscopa, armadi</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Raccogli ed elimina eventuali rifiuti rimasti sul pavimento</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Porta il sacco rifiuti nell’area di raccolta interna</span></li>
+  </ul>
+</div>
+
+<hr class="cute-divider">
+
+<!-- Fase 4 -->
+<div class="fase-box">
+  <div class="fase-title">4️⃣ Fase 4 – Pulizia pavimenti <span class="fase-time">25‑35 min</span></div>
+  <div class="fase-note">Solo ora che tutto è sgombro: <b>prima aspira ovunque</b>, poi passa il mocio, poi pulisci bagno e cucina mentre il pavimento asciuga.</div>
+  <ul class="fase-list">
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Passa l’aspirapolvere completo (sotto mobili, letti, angoli)</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Passa mocio/lavapavimenti stanza per stanza</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Pulisci bagno e cucina mentre il pavimento asciuga</span></li>
+  </ul>
+  <div class="fase-note">Evita di passare il mocio in stanze con traffico continuo; meglio alla fine, quando tutto è pronto e asciutto.</div>
+</div>
+
+<hr class="cute-divider">
+
+<!-- Fase 5 -->
+<div class="fase-box">
+  <div class="fase-title">5️⃣ Fase 5 – Sistemazione finale <span class="fase-time">5‑8 min</span></div>
+  <div class="fase-note">Ultimi dettagli: piega e appendi i vestiti, riordina tutto, rimetti a posto i prodotti per le pulizie, controllo finale… apri le finestre e congratulati!</div>
+  <ul class="fase-list">
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Piega o appendi i vestiti puliti rimanenti</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Riorganizza comodini, piani di lavoro, tavolo, divano</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Metti via gli strumenti di pulizia nello stanzino o disimpegno</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Controlla: niente sporcizia a vista, tutto in ordine</span></li>
+    <li class="fase-item"><input type="checkbox" class="cute-checkbox"><span>Apri le finestre e… goditi la casa pulita!</span></li>
+  </ul>
+</div>
+
+<button class="cute-btn" id="reset-btn">Reset Checklist</button>
+
+<hr class="cute-divider">
+
+  <!-- Tabella tempi -->
+  <table class="fase-table">
+    <tr><th>Fase</th><th>Minuti</th><th>Cosa fai</th></tr>
+    <tr><td>0</td><td>5‑7′</td><td>Setup + campi base</td></tr>
+    <tr><td>1</td><td>15–20′</td><td>Raccolta tri‑giro (rifiuti, vestiti, oggetti, cibo)</td></tr>
+    <tr><td>2</td><td>20–30′</td><td>Processi separati per vestiti / oggetti / cibo</td></tr>
+    <tr><td>3</td><td>10–12′</td><td>Spolverata e aria della casa</td></tr>
+    <tr><td>4</td><td>25–35′</td><td>Aspirapolvere + mocio su tutti i pavimenti</td></tr>
+    <tr><td>5</td><td>5–8′</td><td>Sistemi finali, controllo qualità, detersivi restituiti</td></tr>
+    <tr><th colspan="2">Totale stimato:</th><td><b>max 90 minuti!</b></td></tr>
+  </table>
+
+  <div class="cute-divider"></div>
+
+  <div class="fase-contingency">
+    <b>⚠️ Contingenze previste:</b><br>
+    1. Non puoi portare niente fuori → sacchi sigillati in angoli sicuri, lontano da zone vissute<br>
+    2. Ruoli & tempi non rispettati? → timer! Recupera col prossimo blocco di 15′<br>
+    3. Lavatrice in corso → non fermarti, gestisci cambio carica dopo<br>
+    4. Caos centrale? → puoi lavorare a zone, ma rispetta l’ordine<br>
+    5. Fame o chiamate? → pausa tra fase 2 e 3 se serve, poi riprendi subito
+  </div>
+
+  <div class="cute-footer">Tutto spuntato? <b>La tua casa (e un gatto magico) ti ringraziano!</b></div>
+</div>
+<script>
+  // Assegna un ID unico a ogni checkbox
+  function assignCheckboxIds() {
+    const allChecks = document.querySelectorAll('.cute-checkbox');
+    allChecks.forEach((cb, i) => {
+      cb.id = 'check-'+i;
+    });
+  }
+  assignCheckboxIds();
+
+  // Carica stato dai dati locali
+  function loadCheckboxState() {
+    const allChecks = document.querySelectorAll('.cute-checkbox');
+    let saved = {};
+    try {
+      saved = JSON.parse(localStorage.getItem("cuteChecklistState") || "{}");
+    } catch(e) {}
+    allChecks.forEach(cb => {
+      cb.checked = !!saved[cb.id];
+    });
+  }
+  // Salva stato
+  function saveCheckboxState() {
+    const allChecks = document.querySelectorAll('.cute-checkbox');
+    let state = {};
+    allChecks.forEach(cb => {
+      state[cb.id] = cb.checked;
+    });
+    localStorage.setItem("cuteChecklistState", JSON.stringify(state));
+  }
+
+  // Mostra sorpresa
+  function showSurprise() {
+    if (document.getElementById('cute-surprise')) return; // già mostrata
+    const wrap = document.createElement('div');
+    wrap.id = 'cute-surprise';
+    wrap.style.position = 'fixed';
+    wrap.style.zIndex = '1000';
+    wrap.style.top = '0'; wrap.style.left = '0';
+    wrap.style.width = '100vw'; wrap.style.height = '100vh';
+    wrap.style.background = 'rgba(255,245,234,0.97)';
+    wrap.style.display = 'flex';
+    wrap.style.alignItems = 'center';
+    wrap.style.justifyContent = 'center';
+    wrap.style.flexDirection = 'column';
+    wrap.style.animation = 'popin 1s cubic-bezier(.62,-0.3,.27,1.45)';
+    wrap.innerHTML = `
+      <div style="font-size:5em; margin-bottom:18px;" id="surprise-emoji"></div>
+      <div style="font-family:'Fredoka One', 'Nunito',cursive;font-size:2em;color:#b774d7;margin-bottom:13px;text-align:center;line-height:1.18" id="surprise-msg"></div>
+      <button id="surprise-btn" style="
+        margin-top: 16px;
+        padding: 10px 34px;
+        border: none;
+        border-radius: 18px;
+        background: linear-gradient(92deg, #f6e49e 0%, #fcd5e1 100%);
+        color: #8d5687;
+        font-family: 'Fredoka One', 'Nunito', cursive;
+        font-size: 1.1em;
+        font-weight: 700;
+        letter-spacing: .5px;
+        box-shadow: 0 2px 16px #f6e49e35, 0 1.5px 4px 0 #f9d6e9bb;
+        cursor: pointer;
+        transition: background 0.15s, transform 0.1s;
+      ">Resetta e ricomincia</button>
+      <style>
+      @keyframes popin { 0%{opacity:0; transform: scale(0.7);} 80%{transform:scale(1.12);} 100%{opacity:1; transform: scale(1);} }
+      </style>
+    `;
+    document.body.appendChild(wrap);
+
+    // Contenuto random cute (nascosto qui!)
+    const surprises = [
+      {
+        emoji: "🪄✨",
+        msg: "Magia fatta! La casa ora brilla e qualcosa di speciale ti osserva…"
+      },
+      {
+        emoji: "🌸🌼",
+        msg: "Ordine raggiunto! Fiori, profumo e felicità ovunque tu guardi."
+      },
+      {
+        emoji: "🦊💖",
+        msg: "Missione compiuta! Un piccolo amico si gode il tuo capolavoro."
+      },
+      {
+        emoji: "🌈🍰",
+        msg: "Arcobaleni e dolcetti: hai sbloccato la modalità gioia!"
+      },
+      {
+        emoji: "🐾🎀",
+        msg: "Ogni angolo splende: ora puoi riposarti, la mascotte approva!"
+      }
+    ];
+    const s = surprises[Math.floor(Math.random()*surprises.length)];
+    document.getElementById('surprise-emoji').textContent = s.emoji;
+    document.getElementById('surprise-msg').textContent = s.msg;
+
+    // Reset e chiudi
+    document.getElementById('surprise-btn').onclick = function() {
+      localStorage.removeItem("cuteChecklistState");
+      document.querySelectorAll('.cute-checkbox').forEach(cb => cb.checked = false);
+      document.body.removeChild(wrap);
+    };
+  }
+
+  // Listener check
+  function checkAll() {
+    saveCheckboxState();
+    const allChecks = document.querySelectorAll('.cute-checkbox');
+    const allChecked = Array.from(allChecks).every(cb => cb.checked);
+    if (allChecked) setTimeout(showSurprise, 320);
+  }
+  document.querySelectorAll('.cute-checkbox').forEach(cb => {
+    cb.addEventListener('change', checkAll);
+  });
+
+  // RESET BUTTON
+  document.getElementById('reset-btn').addEventListener('click', function() {
+    localStorage.removeItem("cuteChecklistState");
+    document.querySelectorAll('.cute-checkbox').forEach(cb => cb.checked = false);
+    const wrap = document.getElementById('cute-surprise');
+    if (wrap) document.body.removeChild(wrap);
+  });
+
+  // Al load, ripristina stato
+  loadCheckboxState();
+</script>
+</body>
+</html>
